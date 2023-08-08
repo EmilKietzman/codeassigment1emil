@@ -2,7 +2,7 @@
 
 import type { ContractPromise } from '@polkadot/api-contract';
 import type { ApiPromise } from '@polkadot/api';
-import type { GasLimit, GasLimitAndRequiredValue, Result } from '@727-ventures/typechain-types';
+import type { GasLimit, GasLimitAndRequiredValue, Result } from '@Brushfam/typechain-types';
 import type { QueryReturnType } from '@727-ventures/typechain-types';
 import { queryJSON, queryOkJSON, handleReturnType } from '@727-ventures/typechain-types';
 import type * as ArgumentTypes from '../types-arguments/dao';
