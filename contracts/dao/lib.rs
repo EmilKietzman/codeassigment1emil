@@ -304,11 +304,11 @@ pub mod dao {
             let mut governor = create_contract(1000);
             assert_eq!(
                 governor.propose(accounts.django, 0, 1),
-                Err(GovernorError::AmountShouldNotBeZero)
+                assert_eq!(result, Err(GovernorError::AmountShouldNotBeZero));
             );
             assert_eq!(
                 governor.propose(accounts.django, 100, 0),
-                Err(GovernorError::DurationError)
+                assert_eq!(result, Err(GovernorError::DurationError));
             );
             let result = governor.propose(accounts.django, 100, 1);
             assert_eq!(result, Ok(()));
@@ -327,6 +327,50 @@ pub mod dao {
             assert_eq!(governor.next_proposal_id(), 1);
         }
 
+#[ink::test]
+fn vote_proposal_not_found() {
+    let mut governor = create_contract(1000);
+    let result = governor.vote(1, VoteType::For);
+    assert_eq!(result, Err(GovernorError::ProposalNotFound));
+}
+
+#[ink::test]
+fn vote_proposal_already_executed() {
+    let accounts = default_accounts();
+    let mut governor = create_contract(1000);
+    let _ = governor.propose(accounts.django, 100, 1);
+    let _ = governor.execute(1);
+    let result = governor.vote(1, VoteType::For);
+    assert_eq!(result, Err(GovernorError::ProposalAlreadyExecuted));
+}
+
+#[ink::test]
+fn vote_vote_period_ended() {
+    let accounts = default_accounts();
+    let mut governor = create_contract(1000);
+    let _ = governor.propose(accounts.django, 100, 1);
+    ink_env::test::advance_block::<ink_env::DefaultEnvironment>();
+    let result = governor.vote(1, VoteType::For);
+    assert_eq!(result, Err(GovernorError::VotePeriodEnded));
+}
+
+#[ink::test]
+fn vote_already_voted() {
+    let accounts = default_accounts();
+    let mut governor = create_contract(1000);
+    let _ = governor.propose(accounts.django, 100, 10);
+    let _ = governor.vote(1, VoteType::For);
+    let result = governor.vote(1, VoteType::For);
+    assert_eq!(result, Err(GovernorError::AlreadyVoted));
+}
+
+#[ink::test]
+fn execute_quorum_not_reached() {
+    let mut governor = create_contract(1000);
+    let _ = governor.propose(AccountId::from([0x02; 32]), 100, 1);
+    let result = governor.execute(1);
+    assert_eq!(result, Err(GovernorError::QuorumNotReached));
+}
         #[ink::test]
         fn quorum_not_reached() {
             let mut governor = create_contract(1000);
