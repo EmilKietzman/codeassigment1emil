@@ -3,13 +3,13 @@
 import type { ContractPromise } from '@polkadot/api-contract';
 import type { ApiPromise } from '@polkadot/api';
 import type { GasLimit, GasLimitAndRequiredValue, Result } from '@Brushfam/typechain-types';
-import type { QueryReturnType } from '@727-ventures/typechain-types';
-import { queryJSON, queryOkJSON, handleReturnType } from '@727-ventures/typechain-types';
+import type { QueryReturnType } from '@Brushfam/typechain-types';
+import { queryJSON, queryOkJSON, handleReturnType } from '@Brushfam/typechain-types';
 import type * as ArgumentTypes from '../types-arguments/dao';
 import type * as ReturnTypes from '../types-returns/dao';
 import type BN from 'bn.js';
 //@ts-ignore
-import {ReturnNumber} from '@727-ventures/typechain-types';
+import {ReturnNumber} from '@Brushfam/typechain-types';
 import {getTypeDescription} from './../shared/utils';
 import DATA_TYPE_DESCRIPTIONS from '../data/dao.json';
 
