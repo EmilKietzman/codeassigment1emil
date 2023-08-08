@@ -1,8 +1,8 @@
 /* This file is auto-generated */
 
 import type { ContractPromise } from '@polkadot/api-contract';
-import type { GasLimit, GasLimitAndRequiredValue } from '@727-ventures/typechain-types';
-import { buildSubmittableExtrinsic } from '@727-ventures/typechain-types';
+import type { GasLimit, GasLimitAndRequiredValue } from '@Brushfam/typechain-types';
+import { buildSubmittableExtrinsic } from '@Brushfam/typechain-types';
 import type * as ArgumentTypes from '../types-arguments/dao';
 import type BN from 'bn.js';
 import type { ApiPromise } from '@polkadot/api';
